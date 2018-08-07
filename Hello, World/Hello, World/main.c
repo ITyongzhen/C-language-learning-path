@@ -7,11 +7,33 @@
 //
 
 #include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
+extern int errnok ;
 double getAverage(int arr[], int size);
-void getcharAndPutchar();
-void writeOrOpenFile();
+void getcharAndPutchar(void);
+void writeOrOpenFile(void);
 int main(int argc, const char * argv[]) {
+    
+    FILE * pf;
+    int errnum;
+    pf = fopen ("unexist.txt", "rb");
+    if (pf == NULL)
+    {
+        errnum = errno;
+        fprintf(stderr, "错误号: %d\n", errno);
+        perror("通过 perror 输出错误");
+        fprintf(stderr, "打开文件错误: %s\n", strerror( errnum ));
+    }
+    else
+    {
+        fclose (pf);
+    }
+    
+    
+    
+    
     // insert code here...
 //    printf("Hello, World!\n");
 //    printf("可执行程序 %s, 参数个数 %d, 运行输出 %s\n",argv[0],argc,argv[1]);
